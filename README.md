@@ -9,7 +9,7 @@ Open almost any file, edit PDFs in place, keep everything in folders with full v
 
 **[Open Vatary Desk →](https://vatarydesk.com)** · **[AI console live demo →](https://demo-ai-staging.vatarydesk.com/)**
 
-[Architecture](#architecture) · [Author](https://andrii.tech)
+[Features](#what-you-can-do) · [Architecture](#technical-architecture) · [Author](https://andrii.tech)
 
 </div>
 
@@ -30,99 +30,186 @@ Vatary Desk puts that whole loop on one desk. You upload a file once. From then 
 
 ## What you can do
 
-### 📄 Edit PDFs, not just view them
-- **Edit text in place.** Change words in an existing PDF and keep the original fonts, size and layout. Text reflows inside its block.
-- **Move and replace content.** Swap images, move objects and adjust the page layout.
-- **Organize pages.** Reorder, rotate and delete pages, split one PDF into parts or merge several into one.
-- **Compose a new PDF** from pages of other files on your desk.
-- **Respect protection.** Owner-protected PDFs open normally. When you save, you choose to keep the original protection or remove it, so it is never stripped by accident.
-- **Built for big files.** Uploads go straight to storage and processing runs in the background, so a 500-page manual does not slow the app down.
-
-### 🗂 Open almost any format
-| Kind | Formats |
-|---|---|
-| PDF | view, edit, organize, split, merge, protect |
-| Documents | DOCX, DOC, ODT, RTF, TXT, Markdown |
-| Spreadsheets | XLSX, XLS, ODS, CSV, TSV |
-| Presentations | PPTX |
-| E-books | EPUB, FB2 |
-| Images | PNG, JPG, WebP, AVIF, GIF, SVG, **HEIC/HEIF** |
-| Audio and video | MP3, WAV, M4A, OGG, FLAC, MP4, WebM, MOV and more |
-
-**Convert between them** without leaving the desk: DOCX → PDF, PDF → DOCX with real editable paragraphs and tables, PDF → Markdown, HEIC → JPG, and more. Tables and images survive the conversion.
-
-### 📁 A real file system
-- Nested **folders**, a file tree and a **trash** you can restore from.
-- **Tags**, links and fast search across your files and pages.
-- Fast uploads of large files in parts, directly to storage.
-- An installable **PWA** that caches what you opened, in **Ukrainian and English**.
-
-### 🕓 History you can trust
-- Every page and table keeps a **version timeline**.
-- **Compare any two versions** side by side with highlighted changes and a change list.
-- **Restore** an earlier version in one click, or bring back only the part you need.
-
-### 🤝 Sharing and teamwork
-- Share a file, folder, page or whole desk with **roles**: Owner, Manager, Editor, Viewer.
-- Access set on a folder applies to everything inside it.
-- **Public links** for people outside the workspace.
-- Email notification when someone gives you access.
-- **Real-time co-editing** of pages: see who else is in the document, with simultaneous changes merged automatically.
-- Organizations and teams with a shared workspace.
-
-### ✍️ Pages and widgets
-- A rich **page editor** with tables, images, outlines and import from Word or HTML. Export back to DOCX or PDF.
-- Put **widgets** on your desk: notes, to-dos, kanban boards, tables with formulas, flowcharts, galleries, bookmarks and more.
-
-### 🤖 AI that works on your documents
-- Ask questions about a document and get answers grounded in its content, including very long files. The service reads the document outline first and pulls only the sections it needs.
-- Turn a source into a new page or document from an outline.
-- Save repeatable AI **recipes** and run them on any file.
-- Speak instead of typing: voice input with speech-to-text.
-- Semantic search with embeddings.
-- AI usage is metered in credits per plan, with budgets that keep spend predictable.
+| Area | Feature | What it does |
+|---|---|---|
+| 🖥 **Desk** | Tiles on a desk | Files, pages, tables, boards and widgets live as tiles. Drag, resize, drop into folders, undo with Ctrl+Z |
+| | Several desktops | Keep separate desks per project, copy a desk, export it as a ZIP or import a ZIP onto it |
+| | Same layout on any screen | The desk scales to every monitor; pick a size per device |
+| | Heat map | Highlight tiles by when their documents were added or last edited |
+| | Paste a link | A pasted link becomes a tile with a preview; videos play right on the desk |
+| | Split view | Open a second page, table or file side by side, like a split editor in an IDE |
+| 📄 **PDF** | Edit text in place | Change words in an existing PDF and keep its fonts, size and layout; text reflows inside its block |
+| | Edit images and layout | Replace pictures, move objects, adjust the page |
+| | Organize pages | Rotate, delete, reorder and insert pages |
+| | Split, extract, merge | Cut a PDF into parts, pull out pages, merge several files into one |
+| | Compose a new PDF | Build a document from pages of other files on the desk |
+| | Protection | Owner-protected PDFs open normally; on save you choose to keep or remove the protection |
+| | Live PDFs | Video, page transitions and buttons inside a PDF; files of hundreds of megabytes |
+| ✍️ **Pages** | Rich editor | Headings, lists, tasks, tables, images, code blocks, colours, 80+ fonts |
+| | Block templates | Insert a ready pattern: a tasks table, a schedule, contacts, Q&A |
+| | Charts and diagrams | Bar, line, area and pie charts; flowcharts and diagrams drawn the same on every surface |
+| | Import | Make a page from Word, OpenDocument, RTF, PDF, Markdown, HTML, EPUB, Jupyter and more |
+| | Export | Save a page as PDF, DOCX, ODT, Markdown, HTML or TXT |
+| | Real-time co-editing | See who else is in the document; simultaneous edits merge automatically |
+| 📊 **Tables** | Spreadsheets | Sheets, formulas, number formats, templates, header colours |
+| | Import | Excel, OpenDocument, CSV and TSV become editable tables |
+| | Charts | A chart lives inside its table and updates with the data |
+| 🗂 **Boards** | Kanban | Boards, columns and cards with descriptions, attachments and links; each board is a tile |
+| 🎞 **Presentations** | Edit PowerPoint | Edit text, arrange shapes with a grid and smart guides, present full screen |
+| | Export | PDF, PNG images or ODP; bring back an earlier version |
+| 🧾 **Formats** | Documents | DOCX, DOC, ODT, RTF, Apple Pages, PDF, TXT, Markdown, HTML, AsciiDoc, Org, Jupyter, XML |
+| | Books | EPUB, FB2, Kindle (MOBI / AZW3), CBZ comics |
+| | Spreadsheets | XLSX, XLS, ODS, CSV, TSV |
+| | Images | PNG, JPG, WebP, AVIF, GIF, BMP, SVG, **HEIC / HEIF**, with a photo editor |
+| | Audio and video | MP3, WAV, M4A, OGG, FLAC, MP4, WebM, MOV and more |
+| | 3D models | STL, 3MF, OBJ, glTF / GLB, PLY, rotated right in the browser |
+| | Archives | Unpack ZIP, TAR, TAR.GZ and GZ into a folder; download any folder as a ZIP |
+| | Conversion | DOCX → PDF, PDF → DOCX with editable paragraphs and tables, PDF → Markdown, HEIC → JPG and more |
+| 📁 **Files** | File system | Nested folders, a file tree, tags, a trash you can restore from |
+| | Large uploads | Big files upload in parts, straight to storage |
+| | Search | Fast search across files, pages, tables and boards; semantic search with embeddings |
+| | Links and backlinks | Link any document from another one and see "Referenced by" on the target |
+| 🕓 **History** | Version timeline | Every page and table keeps its versions |
+| | Compare | Two versions side by side with highlighted changes |
+| | Restore | Bring back a whole version or only the part you need |
+| | Journal | A timeline of what happened on your desk |
+| 🤖 **AI** | Ask a document | Answers grounded in the content, even for very long files: the AI reads the outline and pulls only the sections it needs |
+| | Desk AI | Ask about everything on the desk; the result is created as a page or table and fills in while you watch |
+| | Edit part of a page | The AI rewrites one section and leaves the rest alone |
+| | Recipes | Ready scenarios: a summary, a merged table, a task board, a report, run on chosen materials |
+| | Tidy the desk | The AI suggests one to three ways to organize a desk; choose, change or undo |
+| | Web research | Answers that combine your documents with sources from the web |
+| | Voice input | Speak instead of typing; speech is transcribed |
+| | Credits and budgets | AI usage is metered per plan, so spend stays predictable |
+| 🤝 **Sharing** | Roles | Owner, Manager, Editor, Viewer on a file, folder, page or desk; folder access applies to everything inside |
+| | Public links | View-only links anyone can open without signing up |
+| | Organizations | Teams with a shared workspace, switch between personal and team space |
+| | Notifications | An email when someone gives you access |
+| 🧩 **Widgets** | Desk widgets | Notes, to-dos, calculator, currency, world clock, pomodoro, bookmarks, audio, password and random value generator, file shortcuts |
+| 📝 **Surveys** | Polls and feedback | Ask questions and collect answers in the app |
+| 🌍 **Platform** | PWA | Installable, caches what you opened, works through short network drops |
+| | Languages | Ukrainian and English |
+| | Library | Built-in help articles with screenshots, in both languages |
 
 ---
 
-## Architecture
+## Technical architecture
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/architecture-dark.png">
   <img alt="Vatary Desk architecture: a React PWA behind nginx, a NestJS API, a workflow orchestrator calling a document service and an AI gateway over gRPC, PostgreSQL with pgvector, Cloudflare R2, LLM providers, and Sentry, Microsoft Clarity, Grafana and Loki for observability" src="docs/architecture-light.png">
 </picture>
 
-A service-oriented system in **TypeScript, Go and Python**, each language used where it is strongest. Everything runs in Docker containers behind a single reverse proxy.
+A service-oriented system in **TypeScript, Go and Python**, each language used where it is strongest. One repository, every service in its own Docker container.
 
-| Layer | Technology | Responsibility |
+```
+browser (React PWA)
+      │ HTTPS / WebSocket
+      ▼
+nginx reverse proxy ──► NestJS API ──► PostgreSQL + pgvector
+                             │   └──► Cloudflare R2 (signed links)
+                             │ gRPC
+                             ▼
+                   Workflow orchestrator (Go)
+                      │ gRPC          │ gRPC
+                      ▼               ▼
+          Document service (Python)   AI runtime (Go) ──► LLM providers
+```
+
+### Infrastructure
+
+| Piece | Technology | Role |
 |---|---|---|
-| **Web app** | React, TypeScript, Vite, MUI, TanStack Query, Zustand, Tiptap, Yjs, pdf.js, Konva | Installable PWA with offline cache, rich editors and real-time collaboration |
-| **API** | NestJS, Prisma | Accounts, files, folders, versions, sharing and roles, billing, real-time sync, AI features |
-| **Orchestrator** | Go, gRPC | Long-running jobs as workflows with steps, retries and progress |
-| **Document service** | Python, PyMuPDF, LibreOffice, pdf2docx, qpdf, ffmpeg | Conversion, PDF editing, extraction and document structure for AI |
-| **AI gateway** | Go, gRPC | One entry point to 9 LLM providers: prompt registry, model fallbacks, schema validation, cost tracking |
-| **Data** | PostgreSQL + pgvector, Cloudflare R2 | Relational data and vector search, object storage for files and versions |
-| **Infrastructure** | Docker Compose, nginx | Containerised services, TLS, reverse proxy for HTTP and WebSockets |
+| **Containers** | Docker, Docker Compose | Every service is an image; one compose file for development, one for deployment |
+| **Reverse proxy** | nginx | TLS, static files, HTTP and WebSocket routing to the API |
+| **Database** | PostgreSQL + pgvector | Relational data and vector search in one database |
+| **Object storage** | Cloudflare R2 (S3 API) | Files, versions and temporary job files |
+| **Backups** | Scheduled database dumps | Kept locally and copied off-site |
+| **Service contracts** | Protocol Buffers, gRPC, buf | One `proto/` directory is the only source of truth for every internal API |
+| **CI** | GitHub Actions | Tests per service, contract freshness and breaking-change checks, a changelog check per PR |
 
-### Engineering decisions
+### Frontend
 
-- **Files never pass through the API.** The browser uploads straight to object storage with signed links, and services exchange links instead of bytes. Large PDFs never sit in application memory, and the API stays fast under heavy uploads.
-- **Heavy work runs outside the request path.** Conversion, PDF edits and AI pipelines run as orchestrated workflows with retries and progress reporting, so a slow job never blocks the interface.
-- **Strict contracts between services.** Every service boundary is a versioned gRPC contract shared by the TypeScript, Go and Python code, so the services cannot drift apart.
-- **AI under control.** Only one service holds provider keys. It picks a model per task, falls back to another provider on errors, validates every answer against a schema and records the exact cost of each call. Usage is metered per plan.
-- **Long documents without huge prompts.** The AI first reads a document's outline, then pulls only the sections it needs. Tables reach the model whole.
-- **Collaboration without conflicts.** Pages sync in real time through CRDTs, so simultaneous edits merge instead of overwriting each other.
-- **Quality gates in the build.** Over 1,100 test files across the stack. Tests run inside the Docker build, so a failing build never produces an image.
+| Topic | Technology |
+|---|---|
+| **Core** | React, TypeScript, Vite |
+| **UI** | MUI, Emotion, a shared design-token system, Lucide icons, Framer Motion |
+| **Server state** | TanStack Query with an IndexedDB-persisted cache and offline-first mutations |
+| **Client state** | Zustand, Immer, undo history with Zundo |
+| **Desk layout** | react-grid-layout, dnd-kit |
+| **Page editor** | Tiptap (ProseMirror), Yjs for real-time collaboration |
+| **Spreadsheets** | IronCalc (WebAssembly) formula engine, SheetJS, PapaParse |
+| **PDF and documents** | pdf.js, Mammoth, docx, epub.js, AsciiDoctor |
+| **Graphics** | Konva, Three.js for 3D models, Recharts, d3-force |
+| **Code and data** | Monaco editor |
+| **Validation** | Zod, shared with the API contracts |
+| **i18n** | i18next (Ukrainian, English) |
+| **PWA** | Service worker, installable app, cached assets |
+| **Monitoring** | Sentry, PostHog, Microsoft Clarity (content masked) |
+
+### API server
+
+| Topic | Technology |
+|---|---|
+| **Framework** | NestJS, TypeScript |
+| **Data access** | Prisma with versioned migrations; raw SQL only through parameter-bound builders tested against a real Postgres |
+| **Auth and access** | Sign-in, organizations, roles and grants; one access resolver for every resource |
+| **Files** | S3 SDK with presigned upload and download links; multipart uploads |
+| **Real-time** | WebSocket gateway for Yjs document rooms |
+| **Documents** | One HTML sanitizer for every imported or AI-written fragment |
+| **Search and links** | Search across documents, vector search with pgvector embeddings; a link graph for backlinks |
+| **Billing** | Plans, quotas and AI credits; every AI call recorded with its cost |
+| **Background jobs** | Scheduled tasks with NestJS Schedule |
+| **Protection** | Helmet, rate limiting, request validation with Zod |
+| **Talks to** | The orchestrator over gRPC; never to an LLM provider directly |
+
+### Workflow orchestrator (Go)
+
+- Runs every heavy operation as a **workflow**: named steps, retries, progress and an event log.
+- **Fast jobs are synchronous** with a deadline; long jobs start, run in the background and are polled.
+- Retry rules come from gRPC status codes: "will never work" fails at once, "try again" retries.
+- Workflows include document import and conversion, PDF editing, document outlines for AI, AI generation, transcription, embeddings and image generation.
+- State in SQLite; its own console for jobs and step graphs, plus metrics.
+
+### Document service (Python)
+
+- **FastAPI + gRPC** in one process.
+- **LibreOffice** for office formats, **PyMuPDF** and **pikepdf** for PDF reading and editing, **pdf2docx** for PDF → Word, **pi-heif / Pillow** for images, **fontTools** for fonts.
+- Splits, rasterizes, optimizes, chunks and compresses documents, and builds a document outline for AI.
+- Stateless: it downloads inputs and uploads results through presigned links and holds no storage credentials.
+
+### AI runtime (Go)
+
+- The **only** process that holds LLM provider keys.
+- A **prompt registry**: every prompt is versioned and answers JSON validated against a strict schema.
+- **Model routing**: a model chain per task, with fallback to another provider on rate limits and errors.
+- Providers: OpenAI, Anthropic, DeepSeek and OpenAI-compatible APIs for text; transcription, embeddings and image generation.
+- **Cost tracking** per call, returned to the API for billing.
+- Its own operations console: per-call traces, latency, cost, fallback and error rates, and a graph of all model calls behind one user action. [Live demo →](https://demo-ai-staging.vatarydesk.com/)
 
 ### Observability
 
-Every user action gets one correlation id that travels through every service, so a single click can be traced end to end.
+Every user action gets one **correlation id** that travels through the API, the orchestrator, every AI call and the document service, so one click can be traced end to end.
 
 | Tool | What it covers |
 |---|---|
 | **Sentry** | Errors, performance and releases in the web app and the API |
 | **Microsoft Clarity** | Session replays and heatmaps, with document content masked |
+| **PostHog** | Product analytics |
 | **Grafana + Loki** | Logs from every container, dashboards and alerts |
-| **AI operations console** | Per-call traces, latency p50/p95, cost, fallback and error rates, and a graph of all model calls behind one user action. [Live demo →](https://demo-ai-staging.vatarydesk.com/) |
+| **Service consoles** | Orchestrator jobs and the AI runtime console |
+
+### Engineering decisions
+
+- **Files never pass through the API.** The browser uploads straight to object storage with signed links, and services exchange links instead of bytes. Large PDFs never sit in application memory.
+- **Heavy work runs outside the request path.** Conversion, PDF edits and AI pipelines run as orchestrated workflows with retries and progress, so a slow job never blocks the interface.
+- **Strict contracts between services.** Every boundary is a versioned gRPC contract shared by the TypeScript, Go and Python code; generated code is committed and checked in CI.
+- **AI under control.** Only one service holds provider keys. It picks a model per task, falls back on errors, validates every answer against a schema and records the cost of each call.
+- **Billing stays in one place.** Quotas and credits live in the API; every workflow result carries a usage block the API records.
+- **Long documents without huge prompts.** The AI reads the outline first and pulls only the sections it needs. Tables reach the model whole.
+- **Collaboration without conflicts.** Pages sync in real time through CRDTs, so simultaneous edits merge instead of overwriting each other.
+- **Decisions on record.** Each architecture decision is written down as an ADR.
+- **Quality gates in the build.** Over 1,100 test files across the stack. Tests run inside the Docker build, so a failing build never produces an image.
 
 ---
 
