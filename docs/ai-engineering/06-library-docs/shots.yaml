@@ -1,0 +1,55 @@
+# Screenshots of the Library (excerpt). `npm run library:screenshots` reads this manifest.
+#
+# Each shot → library/assets/<article>/<name>.<locale>.webp, used in the article
+# as ![…](assets/<article>/<name>.<locale>.webp).
+#   account   user | admin (dedicated test accounts)
+#   route     an app path; {seed.<key>} = an id from the demo seed, {locale} = uk | en
+#   steps     click / fill (+ value) / wait (a target or milliseconds) / press;
+#             a target is {testid}, {role, name}, {text} or {css}, preferring the first two;
+#             a name or text may be {uk, en}
+#   area      viewport (default) or {selector}
+#   locales   [uk, en] (default) · theme: light (the only one shot)
+#   hide      CSS selectors blanked before the picture: anything that changes on every run
+
+shots:
+  - article: admin.history
+    name: history-page
+    account: admin
+    route: /admin/history
+    steps:
+      - wait: { testid: history-table }
+    hide: ['[data-testid="history-build"]']
+    area: viewport
+
+  - article: admin.history
+    name: move-dialog
+    account: admin
+    route: /admin/history
+    steps:
+      - wait: { testid: history-table }
+      - click: { css: '[data-testid="history-table"] tbody input[type="checkbox"]:not(:disabled)' }
+      - click: { role: button, name: { uk: Створити чернетку релізу, en: Create release draft } }
+      - wait: { text: { uk: Нова чернетка релізу з History, en: New release draft from History } }
+    area: { selector: '[role="dialog"]' }
+
+  - article: pages.block-templates
+    name: insert-menu
+    account: user
+    route: /n/{seed.page.{locale}}
+    steps:
+      - wait: { role: heading, name: { uk: Ризики, en: Risks } }
+      - click: { role: button, name: { uk: Вставити, en: Insert } }
+      - click: { css: '[data-category="presets"]' }
+      - wait: { role: option, name: { uk: Таблиця задач, en: Tasks table } }
+    area: viewport
+
+  - article: files.pdf-pages
+    name: arrange-pages
+    account: user
+    route: /file/{seed.pdf1.{locale}}/view
+    steps:
+      - click: { role: button, name: { uk: Впорядкувати сторінки, en: Arrange pages } }
+      - wait: { role: listbox, name: { uk: Сторінки документа, en: Pages of the document } }
+      - click: { css: '[data-organize-page="2"]' }
+      - wait: 600
+    area: viewport

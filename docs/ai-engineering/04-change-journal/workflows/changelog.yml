@@ -1,0 +1,40 @@
+# History entry check.
+#
+# A PR that changes client/src or server/src (tests and Markdown aside) adds a
+# new changes/<YYYY-MM-DD>-<slug>.md. Opt-outs: the `no-changelog` label, a line
+# `Changelog: none` in the description, or a title starting with `refactor`.
+#
+# A workflow of its own, so adding a label or editing the description re-runs
+# only this check. The PR's title, body and labels are read by the script from
+# $GITHUB_EVENT_PATH and never interpolated into the shell.
+
+name: changelog
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: changelog-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  require-entry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The three-dot diff needs the merge base in the local clone.
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: a product change adds a History entry
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/changes/require-entry.ts "${BASE_SHA}" "${HEAD_SHA}"
+      - run: node --test scripts/changes/require-entry.test.ts scripts/changes/library-rules.test.ts

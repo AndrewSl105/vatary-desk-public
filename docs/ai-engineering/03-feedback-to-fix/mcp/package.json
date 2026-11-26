@@ -1,0 +1,26 @@
+{
+  "name": "feedback-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server: Claude Code works on Vatary Desk feedback tickets over the API",
+  "type": "module",
+  "bin": {
+    "feedback-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node --test dist/*.test.js",
+    "smoke": "npm run build && node scripts/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}

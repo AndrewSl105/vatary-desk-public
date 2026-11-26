@@ -1,0 +1,4 @@
+{
+  "//": "ESM for Node type stripping: node scripts/changes/require-entry.ts",
+  "type": "module"
+}

@@ -1,0 +1,76 @@
+# The Library's section tree. Source of truth; compiled by `npm run library:build`.
+# Fields: id (directory name under articles/), order, icon (a dsIcons name, kebab-case),
+# title_uk, title_en, optional parent (a section id), optional audience (user | admin).
+# See library/README.md.
+sections:
+  - id: getting-started
+    order: 10
+    icon: rocket
+    title_uk: Початок роботи
+    title_en: Getting started
+  - id: desk
+    order: 20
+    icon: layout-grid
+    title_uk: Стіл
+    title_en: Desk
+  - id: pages
+    order: 30
+    icon: file-text
+    title_uk: Сторінки
+    title_en: Pages
+  - id: tables
+    order: 40
+    icon: table
+    title_uk: Таблиці
+    title_en: Tables
+  - id: boards
+    order: 50
+    icon: square-kanban
+    title_uk: Дошки
+    title_en: Boards
+  - id: files
+    order: 70
+    icon: folder
+    title_uk: Файли
+    title_en: Files
+  - id: desk-ai
+    order: 80
+    icon: sparkle
+    title_uk: Desk.ai
+    title_en: Desk.ai
+  - id: collaboration
+    order: 90
+    icon: users
+    title_uk: Спільна робота
+    title_en: Collaboration
+  - id: widgets
+    order: 100
+    icon: app-window
+    title_uk: Віджети та застосунки
+    title_en: Widgets & apps
+  - id: journal
+    order: 110
+    icon: history
+    title_uk: Журнал і хронологія
+    title_en: Journal & timeline
+  - id: surveys
+    order: 120
+    icon: vote
+    title_uk: Опитування та відгуки
+    title_en: Surveys & feedback
+  - id: settings
+    order: 130
+    icon: settings
+    title_uk: Налаштування, плани й ліміти
+    title_en: Settings, plans & limits
+  - id: shortcuts
+    order: 140
+    icon: keyboard
+    title_uk: Гарячі клавіші
+    title_en: Keyboard shortcuts
+  - id: admin
+    order: 900
+    icon: shield
+    title_uk: Адмін-панель
+    title_en: Admin panel
+    audience: admin

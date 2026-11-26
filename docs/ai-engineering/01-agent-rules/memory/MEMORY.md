@@ -1,0 +1,3 @@
+- [Commit, don't push](commit-dont-push.md) — on the integration branch: commit only; push only when asked
+- [Shared tree: no stash](shared-tree-no-stash.md) — other agents' uncommitted work lives in the checkout; never stash or reset; stage only your own hunks
+- [No flags, the system decides](no-flags-system-decides.md) — new behaviour is the default, decided from the data, never behind new env vars
