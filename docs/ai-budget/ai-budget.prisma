@@ -1,0 +1,53 @@
+// The AI budget tables (excerpt of the Prisma schema).
+
+/// The AI spend ledger: one row per billed model call, in micro-dollars.
+/// Idempotent on `runtimeRequestId`: the same call reported twice is charged once.
+/// Append-only and on the hot path, so it has no foreign keys.
+model AiSpend {
+  id               String   @id
+  runtimeRequestId String?  @unique
+  orgId            String
+  profileId        String?
+  action           String?
+  model            String?
+  provider         String?
+  costMicros       BigInt
+  costEstimated    Boolean  @default(false)
+  /// response | failed | sync | estimate
+  source           String
+  /// user | system
+  initiator        String?
+  /// When the call happened; decides the period.
+  at               DateTime
+  periodStart      DateTime
+  createdAt        DateTime @default(now())
+
+  @@index([orgId, periodStart])
+  @@index([at])
+}
+
+/// Budget held by an AI action in flight, counted in AiSpendPeriod.reservedMicros
+/// until released. A reservation whose holder died is freed by the reaper at `expiresAt`.
+model AiSpendReservation {
+  id          String   @id
+  orgId       String
+  periodStart DateTime
+  micros      BigInt
+  /// "admit" (one user action) or "steps:<ACTION>" (a multi-step action).
+  reason      String
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  @@index([expiresAt])
+}
+
+/// Running totals per organization and month: one indexed row the gate locks.
+model AiSpendPeriod {
+  orgId          String
+  periodStart    DateTime
+  spentMicros    BigInt   @default(0)
+  reservedMicros BigInt   @default(0)
+  updatedAt      DateTime @default(now())
+
+  @@id([orgId, periodStart])
+}
