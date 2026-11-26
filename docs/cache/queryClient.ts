@@ -5,28 +5,22 @@ import { del, get, set } from 'idb-keyval'
 import { LEGACY_QUERY_CACHE_KEY } from './storage/legacyStorage'
 import { registerMutationDefaults } from './mutationDefaults'
 
-const QUERY_STALE_TIME_MS = 30_000
-const QUERY_GC_TIME_MS = 24 * 60 * 60 * 1_000
-const QUERY_MUTATION_RETRY_COUNT = 0
-const QUERY_PERSISTENCE_THROTTLE_MS = 1_000
+const MS_PER_SECOND = 1_000
+const SECONDS_PER_MINUTE = 60
+const MINUTES_PER_HOUR = 60
+const HOURS_PER_DAY = 24
+const MS_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND
+
+const QUERY_STALE_TIME_MS = 30 * MS_PER_SECOND
+const QUERY_GC_TIME_MS = MS_PER_DAY
+const MUTATION_RETRY_COUNT = 0
+const PERSISTENCE_THROTTLE_MS = MS_PER_SECOND
 
 const QUERY_CACHE_STORAGE_KEY = 'vatary.cache.v1'
 const MAX_PERSISTED_TABLE_ROWS = 1_500
 
 const TABLE_QUERY_KEY_ROOT = 'tables'
 const TABLE_DOCUMENT_QUERY_KEY = 'doc'
-
-const QUERY_DEFAULT_OPTIONS = {
-  queries: {
-    staleTime: QUERY_STALE_TIME_MS,
-    gcTime: QUERY_GC_TIME_MS,
-    refetchOnWindowFocus: false,
-  },
-  mutations: {
-    retry: QUERY_MUTATION_RETRY_COUNT,
-    networkMode: 'offlineFirst' as const,
-  },
-}
 
 type TableDocumentData = {
   data?: {
@@ -37,7 +31,17 @@ type TableDocumentData = {
 }
 
 export const queryClient = new QueryClient({
-  defaultOptions: QUERY_DEFAULT_OPTIONS,
+  defaultOptions: {
+    queries: {
+      staleTime: QUERY_STALE_TIME_MS,
+      gcTime: QUERY_GC_TIME_MS,
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: MUTATION_RETRY_COUNT,
+      networkMode: 'offlineFirst',
+    },
+  },
 })
 
 registerMutationDefaults(queryClient)
@@ -54,7 +58,7 @@ export function isLargeTableDocQuery(
     return false
   }
 
-  const { sheets } = (data as TableDocumentData | undefined)?.data ?? {}
+  const sheets = (data as TableDocumentData | undefined)?.data?.sheets
 
   if (!Array.isArray(sheets)) {
     return false
@@ -73,9 +77,7 @@ export function isLargeTableDocQuery(
   return false
 }
 
-async function adoptLegacyCache(
-  storageKey: string,
-): Promise<string | null> {
+async function adoptLegacyCache(storageKey: string): Promise<string | null> {
   const legacyCache = await get<string>(LEGACY_QUERY_CACHE_KEY)
 
   if (legacyCache === undefined) {
@@ -100,7 +102,7 @@ export const queryPersister = createAsyncStoragePersister({
       await del(key)
     },
   },
-  throttleTime: QUERY_PERSISTENCE_THROTTLE_MS,
+  throttleTime: PERSISTENCE_THROTTLE_MS,
 })
 
 const queryCacheWipeListeners = new Set<() => void>()
@@ -127,7 +129,7 @@ export async function purgeQueryCache(): Promise<void> {
     await queryPersister.removeClient()
     await del(LEGACY_QUERY_CACHE_KEY)
   } catch {
-    // IndexedDB may be unavailable, for example in private browsing mode.
+    // Persistent storage is unavailable; the in-memory cache is already cleared.
   }
 }
 
@@ -137,7 +139,7 @@ export async function resetQueryCacheForScopeChange(
   try {
     await queryPersister.removeClient()
   } catch {
-    // IndexedDB may be unavailable, for example in private browsing mode.
+    // Persistent storage is unavailable; there is no stored snapshot to remove.
   }
 
   notifyQueryCacheWipe()
@@ -145,7 +147,6 @@ export async function resetQueryCacheForScopeChange(
   const preservedQueryKeyRoots = new Set(keepKeyRoots)
 
   await queryClient.resetQueries({
-    predicate: (query) =>
-      !preservedQueryKeyRoots.has(String(query.queryKey[0])),
+    predicate: (query) => !preservedQueryKeyRoots.has(String(query.queryKey[0])),
   })
 }
